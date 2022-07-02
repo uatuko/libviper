@@ -1,0 +1,11 @@
+object:
+  key: value
+  float: 0.25
+  array:
+    - null:
+    - boolean: true
+    - number: 1
+text: |-
+  Multi
+  line
+  text

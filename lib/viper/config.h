@@ -1,21 +1,31 @@
 #pragma once
 
+#include <array>
+#include <filesystem>
+
 namespace viper {
 class config {
 public:
-	/**
-	 * Set the name of config file
-	 */
-	void name(const char *n);
+	/// List of supported extensions
+	const std::array<const char *, 2> extensions = {".yaml", ".yml"};
+
+	config() = delete;
+	config(const char *name, const char *path);
 
 	/**
-	 * Set the path to search for config file
+	 * Return the config file used.
 	 */
-	void path(const char *path);
+	std::filesystem::path filename();
 
 	/**
-	 * Read in configs
+	 * Read in configs.
 	 */
 	void read();
+
+private:
+	const char *_name;
+	const char *_path;
+
+	std::filesystem::path _filename;
 };
 } // namespace viper
