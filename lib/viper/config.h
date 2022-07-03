@@ -2,6 +2,7 @@
 
 #include <array>
 #include <filesystem>
+#include <ryml.hpp>
 
 namespace viper {
 class config {
@@ -27,5 +28,7 @@ private:
 	const char *_path;
 
 	std::filesystem::path _filename;
+
+	ryml::Tree _tree;
 };
 } // namespace viper

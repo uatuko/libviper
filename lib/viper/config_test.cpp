@@ -33,3 +33,11 @@ TEST(viper, config_filename) {
 		EXPECT_TRUE(c.filename().empty());
 	}
 }
+
+TEST(viper, config_read) {
+	// Successful read
+	{
+		auto c = viper::config("conf", VIPER_TESTDATA_PATH);
+		EXPECT_NO_THROW(c.read());
+	}
+}

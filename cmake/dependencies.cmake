@@ -7,3 +7,10 @@ FetchContent_Declare(googletest
 )
 FetchContent_MakeAvailable(googletest)
 
+# ryml
+FetchContent_Declare(ryml
+	URL https://github.com/biojppm/rapidyaml/releases/download/v0.4.1/rapidyaml-0.4.1-src.tgz
+	URL_HASH SHA256=3c0a671a7a5aab972f7d259736d14beb9f428c4441f0c220dc0717a4946b495c
+)
+FetchContent_MakeAvailable(ryml)
+

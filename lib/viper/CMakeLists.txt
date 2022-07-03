@@ -2,6 +2,10 @@ add_library(viper
 	config.cpp
 )
 
+target_link_libraries(viper
+	PUBLIC ryml::ryml
+)
+
 add_library(libviper::viper ALIAS viper)
 
 # tests
