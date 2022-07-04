@@ -46,6 +46,6 @@ void config::read() {
 		throw std::filesystem::filesystem_error("[viper] Failed to read configs", e.code());
 	}
 
-	_tree = ryml::parse_in_arena(ryml::to_csubstr(buffer.data()));
+	_tree = tree(buffer);
 }
 } // namespace viper

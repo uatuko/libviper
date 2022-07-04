@@ -2,7 +2,9 @@
 
 #include <array>
 #include <filesystem>
-#include <ryml.hpp>
+#include <optional>
+
+#include "tree.h"
 
 namespace viper {
 class config {
@@ -19,6 +21,18 @@ public:
 	std::filesystem::path filename();
 
 	/**
+	 * Retrieve a config value.
+	 */
+	template <typename T> inline std::optional<T> get(const char *key) {
+		return leaf(key).value<T>();
+	}
+
+	/**
+	 * Retrieve a config leaf for a given path.
+	 */
+	inline viper::leaf leaf(const char *path) { return _tree.leaf(path); }
+
+	/**
 	 * Read in configs.
 	 */
 	void read();
@@ -29,6 +43,6 @@ private:
 
 	std::filesystem::path _filename;
 
-	ryml::Tree _tree;
+	tree _tree;
 };
 } // namespace viper
