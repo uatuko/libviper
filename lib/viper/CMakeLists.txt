@@ -2,6 +2,7 @@ add_library(viper
 	config.cpp
 	leaf.cpp
 	tree.cpp
+	value.cpp
 )
 
 target_link_libraries(viper
@@ -13,7 +14,9 @@ add_library(libviper::viper ALIAS viper)
 # tests
 add_executable(viper_tests
 	config_test.cpp
+	leaf_test.cpp
 	tree_test.cpp
+	value_test.cpp
 )
 
 cmake_path(SET viper_testdata_path ${CMAKE_CURRENT_SOURCE_DIR}/testdata)

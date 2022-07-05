@@ -16,7 +16,7 @@ public:
 	/**
 	 *  Retrieve a leaf for a given path.
 	 */
-	viper::leaf leaf(const char *path);
+	viper::leaf leaf(const char *path) const;
 
 private:
 	ryml::Tree _tree;

@@ -15,6 +15,8 @@ public:
 	config() = delete;
 	config(const char *name, const char *path);
 
+	inline viper::value operator[](const char *key) const { return get(key); }
+
 	/**
 	 * Return the config file used.
 	 */
@@ -23,14 +25,12 @@ public:
 	/**
 	 * Retrieve a config value.
 	 */
-	template <typename T> inline std::optional<T> get(const char *key) {
-		return leaf(key).value<T>();
-	}
+	viper::value get(const char *key) const;
 
 	/**
 	 * Retrieve a config leaf for a given path.
 	 */
-	inline viper::leaf leaf(const char *path) { return _tree.leaf(path); }
+	viper::leaf leaf(const char *path) const;
 
 	/**
 	 * Read in configs.

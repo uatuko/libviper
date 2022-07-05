@@ -1,8 +1,8 @@
 #pragma once
 
-#include <optional>
 #include <ryml.hpp>
-#include <string>
+
+#include "value.h"
 
 namespace viper {
 class leaf {
@@ -13,12 +13,9 @@ public:
 	constexpr explicit operator bool() const noexcept { return (_node != nullptr); }
 
 	/**
-	 * Retrieve a config value.
+	 * Retrieve the leaf value.
 	 */
-	template <typename T> std::optional<T> value() { return std::nullopt; }
-
-	template <> std::optional<bool>        value();
-	template <> std::optional<std::string> value();
+	viper::value value() const;
 
 private:
 	ryml::NodeRef _node;

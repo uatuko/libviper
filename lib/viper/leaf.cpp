@@ -1,19 +1,12 @@
 #include "leaf.h"
 
 namespace viper {
-template <> std::optional<bool> leaf::value() {
+viper::value leaf::value() const {
 	if (_node == nullptr || !_node.is_keyval()) {
 		return std::nullopt;
 	}
 
-	return (_node.val() == "true");
-}
-
-template <> std::optional<std::string> leaf::value() {
-	if (_node == nullptr || !_node.is_keyval()) {
-		return std::nullopt;
-	}
-
-	return _node.val().data();
+	auto v = _node.val();
+	return viper::value(std::in_place, v.data(), v.size());
 }
 } // namespace viper

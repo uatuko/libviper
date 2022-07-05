@@ -27,6 +27,14 @@ std::filesystem::path config::filename() {
 	return _filename;
 }
 
+viper::value config::get(const char *key) const {
+	return leaf(key).value();
+}
+
+viper::leaf config::leaf(const char *path) const {
+	return _tree.leaf(path);
+}
+
 void config::read() {
 	auto ec    = std::error_code();
 	auto fname = filename();

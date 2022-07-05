@@ -1,7 +1,7 @@
 #include "tree.h"
 
 namespace viper {
-viper::leaf tree::leaf(const char *path) {
+viper::leaf tree::leaf(const char *path) const {
 	ryml::NodeRef ref = _tree.rootref();
 	if (!ref.is_map()) {
 		return viper::leaf(nullptr);
