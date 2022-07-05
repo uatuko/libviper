@@ -11,12 +11,13 @@ public:
 	/// Represents a value node
 	typedef ryml::NodeRef node_t;
 
-	value() : std::optional<std::string_view>(std::nullopt), _node(nullptr) {}
-	value(const char *s) : std::optional<std::string_view>(s), _node(nullptr) {}
-	value(const char *s, std::size_t count) :
-		std::optional<std::string_view>(std::in_place, s, count), _node(nullptr) {}
-	value(node_t node) : std::optional<std::string_view>(std::nullopt), _node(node) {}
-	value(std::nullopt_t null) : std::optional<std::string_view>(null), _node(nullptr) {}
+	value();
+	value(const char *s);
+	value(const char *s, std::size_t count);
+	value(node_t node);
+	value(std::nullopt_t null);
+
+	constexpr operator bool() const noexcept { return has_value() || (_node != nullptr); }
 
 	operator std::string_view();
 
