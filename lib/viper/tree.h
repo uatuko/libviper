@@ -1,7 +1,8 @@
 #pragma once
 
-#include <ryml.hpp>
 #include <vector>
+
+#include <ryml.hpp>
 
 #include "leaf.h"
 
