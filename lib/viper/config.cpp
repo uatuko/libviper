@@ -27,12 +27,31 @@ std::filesystem::path config::filename() {
 	return _filename;
 }
 
-viper::value config::get(const char *key) const {
-	return leaf(key).value();
+viper::value config::get(const char *path) const {
+	auto n = node(path);
+	return viper::value(n);
 }
 
-viper::leaf config::leaf(const char *path) const {
-	return _tree.leaf(path);
+config::node_t config::node(const char *path) const {
+	node_t ref = _tree.rootref();
+	if (!ref.is_map()) {
+		return {nullptr};
+	}
+
+	for (auto part : ryml::to_csubstr(path).split('.', 0)) {
+		if (!ref.is_map()) {
+			// Can't access any children
+			ref = node_t{nullptr};
+			break;
+		}
+
+		ref = ref[part];
+		if (ref == nullptr) {
+			break;
+		}
+	}
+
+	return ref;
 }
 
 void config::read() {
@@ -54,6 +73,6 @@ void config::read() {
 		throw std::filesystem::filesystem_error("[viper] Failed to read configs", e.code());
 	}
 
-	_tree = tree(buffer);
+	_tree = ryml::parse_in_arena(ryml::to_csubstr(buffer.data()));
 }
 } // namespace viper

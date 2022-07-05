@@ -23,10 +23,10 @@ TEST(viper, value_conversions) {
 
 	// Partials
 	{
-		std::string_view v = viper::value(std::in_place, data, 6);
+		std::string_view v = viper::value(data, 6);
 		EXPECT_EQ("0....5"sv, v);
 
-		v = viper::value(std::in_place, data + 5, 5);
+		v = viper::value(data + 5, 5);
 		EXPECT_EQ("5...9"sv, v);
 	}
 

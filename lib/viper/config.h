@@ -4,13 +4,21 @@
 #include <filesystem>
 #include <optional>
 
-#include "tree.h"
+#include <ryml.hpp>
+
+#include "value.h"
 
 namespace viper {
 class config {
 public:
 	/// List of supported extensions
 	const std::array<const char *, 2> extensions = {".yaml", ".yml"};
+
+	/// Represent a config tree
+	typedef ryml::Tree tree_t;
+
+	/// Represents a config node
+	typedef ryml::NodeRef node_t;
 
 	config() = delete;
 	config(const char *name, const char *path);
@@ -25,12 +33,12 @@ public:
 	/**
 	 * Retrieve a config value.
 	 */
-	viper::value get(const char *key) const;
+	viper::value get(const char *path) const;
 
 	/**
-	 * Retrieve a config leaf for a given path.
+	 * Retrieve a config node for a given path.
 	 */
-	viper::leaf leaf(const char *path) const;
+	node_t node(const char *path) const;
 
 	/**
 	 * Read in configs.
@@ -43,6 +51,6 @@ private:
 
 	std::filesystem::path _filename;
 
-	tree _tree;
+	tree_t _tree;
 };
 } // namespace viper

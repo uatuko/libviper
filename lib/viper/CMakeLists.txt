@@ -1,7 +1,5 @@
 add_library(viper
 	config.cpp
-	leaf.cpp
-	tree.cpp
 	value.cpp
 )
 
@@ -14,8 +12,6 @@ add_library(libviper::viper ALIAS viper)
 # tests
 add_executable(viper_tests
 	config_test.cpp
-	leaf_test.cpp
-	tree_test.cpp
 	value_test.cpp
 )
 
