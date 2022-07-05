@@ -18,7 +18,7 @@ public:
 	value(node_t node) : std::optional<std::string_view>(std::nullopt), _node(node) {}
 	value(std::nullopt_t null) : std::optional<std::string_view>(null), _node(nullptr) {}
 
-	operator std::string_view() const;
+	operator std::string_view();
 
 private:
 	node_t _node;

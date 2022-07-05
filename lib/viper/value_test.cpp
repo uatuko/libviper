@@ -36,4 +36,18 @@ TEST(viper, value_conversions) {
 		EXPECT_EQ(0, v.size());
 		EXPECT_EQ(""sv, v);
 	}
+
+	// From ryml::NodeRef
+	{
+		auto             t = ryml::parse_in_arena(R"(key: value)");
+		std::string_view v = viper::value(t["key"]);
+		EXPECT_EQ("value"sv, v);
+	}
+
+	// From null ryml::NodeRef
+	{
+		std::string_view v = viper::value(ryml::NodeRef{});
+		EXPECT_EQ(0, v.size());
+		EXPECT_EQ(""sv, v);
+	}
 }
