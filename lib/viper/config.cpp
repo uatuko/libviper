@@ -6,6 +6,8 @@
 namespace viper {
 config::config(const char *name, const char *path) : _name(name), _path(path) {}
 
+config::config(tree_t t) : _tree(t) {}
+
 std::filesystem::path config::filename() {
 	if (!_filename.empty()) {
 		return _filename;

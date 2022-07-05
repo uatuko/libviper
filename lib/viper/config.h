@@ -22,6 +22,7 @@ public:
 
 	config() = delete;
 	config(const char *name, const char *path);
+	config(tree_t t);
 
 	inline viper::value operator[](const char *key) const { return get(key); }
 
