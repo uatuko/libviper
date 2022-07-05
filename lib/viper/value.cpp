@@ -4,7 +4,7 @@ namespace viper {
 value::operator std::string_view() {
 	if (!has_value()) {
 		if (_node == nullptr || !_node.is_keyval()) {
-			return std::string_view();
+			return std::string_view{};
 		}
 
 		// optional value not set, update from node

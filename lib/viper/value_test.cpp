@@ -32,7 +32,7 @@ TEST(viper, value_conversions) {
 
 	// Nulls
 	{
-		std::string_view v = viper::value();
+		std::string_view v = viper::value{};
 		EXPECT_EQ(0, v.size());
 		EXPECT_EQ(""sv, v);
 	}

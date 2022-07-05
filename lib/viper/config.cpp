@@ -55,7 +55,7 @@ config::node_t config::node(const char *path) const {
 }
 
 void config::read() {
-	auto ec    = std::error_code();
+	auto ec    = std::error_code{};
 	auto fname = filename();
 	auto size  = std::filesystem::file_size(fname, ec);
 
