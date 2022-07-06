@@ -5,10 +5,9 @@
 using namespace std::literals;
 
 TEST(viper, value_constructor) {
-	// Constructor inheritence
 	{
 		viper::value v = std::nullopt;
-		EXPECT_FALSE(v.has_value());
+		EXPECT_FALSE(v.data());
 	}
 }
 

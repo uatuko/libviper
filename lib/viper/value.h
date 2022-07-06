@@ -6,7 +6,7 @@
 #include <ryml.hpp>
 
 namespace viper {
-class value : public std::optional<std::string_view> {
+class value {
 public:
 	/// Represents a value node
 	typedef ryml::NodeRef node_t;
@@ -17,11 +17,15 @@ public:
 	value(node_t node);
 	value(std::nullopt_t null);
 
-	constexpr operator bool() const noexcept { return has_value() || (_node != nullptr); }
+	constexpr operator bool() const noexcept { return _value || (_node != nullptr); }
 
 	operator std::string_view();
 
+	std::optional<std::string_view> data() const noexcept;
+
 private:
 	node_t _node;
+
+	mutable std::optional<std::string_view> _value;
 };
 } // namespace viper

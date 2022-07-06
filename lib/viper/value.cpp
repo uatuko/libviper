@@ -1,28 +1,36 @@
 #include "value.h"
 
 namespace viper {
-value::value() : std::optional<std::string_view>(std::nullopt), _node(nullptr) {}
+value::value() : _node(nullptr), _value(std::nullopt) {}
 
-value::value(const char *s) : std::optional<std::string_view>(s), _node(nullptr) {}
+value::value(const char *s) : _node(nullptr), _value(s) {}
 
-value::value(const char *s, std::size_t count) :
-	std::optional<std::string_view>(std::in_place, s, count), _node(nullptr) {}
+value::value(const char *s, std::size_t count) : _node(nullptr), _value(std::in_place, s, count) {}
 
-value::value(node_t node) : std::optional<std::string_view>(std::nullopt), _node(node) {}
+value::value(node_t node) : _node(node), _value(std::nullopt) {}
 
-value::value(std::nullopt_t null) : std::optional<std::string_view>(null), _node(nullptr) {}
+value::value(std::nullopt_t null) : _node(nullptr), _value(null) {}
 
 value::operator std::string_view() {
-	if (!has_value()) {
+	if (!_value) {
 		if (_node == nullptr || !_node.is_keyval()) {
 			return std::string_view{};
 		}
 
 		// optional value not set, update from node
 		auto v = _node.val();
-		emplace(std::string_view(v.data(), v.size()));
+		_value = {v.data(), v.size()};
 	}
 
-	return std::optional<std::string_view>::value();
+	return _value.value();
+}
+
+std::optional<std::string_view> value::data() const noexcept {
+	if (!_value && _node != nullptr && _node.is_keyval()) {
+		auto v = _node.val();
+		_value = {v.data(), v.size()};
+	}
+
+	return _value;
 }
 } // namespace viper
