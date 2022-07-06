@@ -19,7 +19,7 @@ public:
 
 	constexpr operator bool() const noexcept { return _value || (_node != nullptr); }
 
-	operator std::string_view();
+	operator std::string_view() const noexcept;
 
 	std::optional<std::string_view> data() const noexcept;
 

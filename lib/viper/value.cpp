@@ -11,18 +11,13 @@ value::value(node_t node) : _node(node), _value(std::nullopt) {}
 
 value::value(std::nullopt_t null) : _node(nullptr), _value(null) {}
 
-value::operator std::string_view() {
-	if (!_value) {
-		if (_node == nullptr || !_node.is_keyval()) {
-			return std::string_view{};
-		}
-
-		// optional value not set, update from node
-		auto v = _node.val();
-		_value = {v.data(), v.size()};
+value::operator std::string_view() const noexcept {
+	auto d = data();
+	if (!d) {
+		return std::string_view{};
 	}
 
-	return _value.value();
+	return d.value();
 }
 
 std::optional<std::string_view> value::data() const noexcept {
