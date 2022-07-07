@@ -17,11 +17,24 @@ public:
 	value(node_t node);
 	value(std::nullopt_t null);
 
-	constexpr operator bool() const noexcept { return _value || (_node != nullptr); }
+	constexpr explicit operator bool() const noexcept { return _value || (_node != nullptr); }
 
-	operator std::string_view() const noexcept;
+	template <typename T> explicit operator T() const noexcept { return get<T>(); }
 
 	std::optional<std::string_view> data() const noexcept;
+
+	/**
+	 * Retrieve the stored value converted to a given type.
+	 *
+	 * Specialisations:
+	 *   - template <> bool get() const noexcept;
+	 *   - template <> long get() const noexcept;
+	 *   - template <> std::string get() const noexcept;
+	 *   - template <> std::string_view get() const noexcept;
+	 */
+	template <typename T> T get() const noexcept;
+
+	std::string_view str() const noexcept;
 
 private:
 	node_t _node;
