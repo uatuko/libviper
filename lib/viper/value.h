@@ -10,7 +10,10 @@ namespace viper {
 class value {
 public:
 	/// Represents a value node
-	typedef ryml::NodeRef node_t;
+	using node_t = ryml::NodeRef;
+
+	/// Represents value data
+	using data_t = std::optional<std::string_view>;
 
 	struct iterator {
 	public:
@@ -44,11 +47,11 @@ public:
 
 	value();
 	value(const char *s);
-	value(const char *s, std::size_t count);
+	value(const char *s, std::size_t size);
 	value(node_t node);
 	value(std::nullopt_t null);
 
-	constexpr explicit operator bool() const noexcept { return _value || (_node != nullptr); }
+	constexpr explicit operator bool() const noexcept { return _data || (_node != nullptr); }
 
 	template <typename T> explicit operator T() const noexcept { return get<T>(); }
 
@@ -57,7 +60,7 @@ public:
 	iterator begin() const noexcept { return iterator(_node); }
 	iterator end() const noexcept { return iterator(nullptr); }
 
-	std::optional<std::string_view> data() const noexcept;
+	data_t data() const noexcept;
 
 	/**
 	 * Retrieve the stored value converted to a given type.
@@ -75,6 +78,6 @@ public:
 private:
 	node_t _node;
 
-	mutable std::optional<std::string_view> _value;
+	mutable data_t _data;
 };
 } // namespace viper

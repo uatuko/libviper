@@ -5,23 +5,23 @@
 #include <string>
 
 namespace viper {
-value::value() : _node(nullptr), _value(std::nullopt) {}
+value::value() : _node(nullptr), _data(std::nullopt) {}
 
-value::value(const char *s) : _node(nullptr), _value(s) {}
+value::value(const char *s) : _node(nullptr), _data(s) {}
 
-value::value(const char *s, std::size_t count) : _node(nullptr), _value(std::in_place, s, count) {}
+value::value(const char *s, std::size_t size) : _node(nullptr), _data(std::in_place, s, size) {}
 
-value::value(node_t node) : _node(node), _value(std::nullopt) {}
+value::value(node_t node) : _node(node), _data(std::nullopt) {}
 
-value::value(std::nullopt_t null) : _node(nullptr), _value(null) {}
+value::value(std::nullopt_t null) : _node(nullptr), _data(null) {}
 
-std::optional<std::string_view> value::data() const noexcept {
-	if (!_value && _node != nullptr && _node.has_val()) {
+value::data_t value::data() const noexcept {
+	if (!_data && _node != nullptr && _node.has_val()) {
 		auto v = _node.val();
-		_value = {v.data(), v.size()};
+		_data  = {v.data(), v.size()};
 	}
 
-	return _value;
+	return _data;
 }
 
 template <> bool value::get() const noexcept {
