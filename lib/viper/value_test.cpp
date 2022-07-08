@@ -1,3 +1,5 @@
+#include <array>
+
 #include <gtest/gtest.h>
 
 #include "value.h"
@@ -105,5 +107,25 @@ TEST(viper, value_get) {
 		EXPECT_FALSE(viper::value("0").get<bool>());
 		EXPECT_FALSE(viper::value("string").get<bool>());
 		EXPECT_FALSE(viper::value{}.get<bool>());
+	}
+}
+
+TEST(viper, value_iterator) {
+	auto t = ryml::parse_in_arena(R"(
+object:
+  key: value
+
+array:
+  - one
+  - two
+)");
+
+	{
+		std::array<viper::value, 2> expected = {"one", "two"};
+
+		std::size_t idx = 0;
+		for (const auto &v : viper::value(t["array"])) {
+			EXPECT_EQ(expected[idx++], v);
+		}
 	}
 }

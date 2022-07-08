@@ -16,7 +16,7 @@ value::value(node_t node) : _node(node), _value(std::nullopt) {}
 value::value(std::nullopt_t null) : _node(nullptr), _value(null) {}
 
 std::optional<std::string_view> value::data() const noexcept {
-	if (!_value && _node != nullptr && _node.is_keyval()) {
+	if (!_value && _node != nullptr && _node.has_val()) {
 		auto v = _node.val();
 		_value = {v.data(), v.size()};
 	}
@@ -71,6 +71,10 @@ template <> std::string value::get() const noexcept {
 
 template <> std::string_view value::get() const noexcept {
 	return str();
+}
+
+bool value::operator==(const value &that) const noexcept {
+	return (data() == that.data());
 }
 
 std::string_view value::str() const noexcept {
