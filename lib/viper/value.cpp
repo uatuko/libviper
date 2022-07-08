@@ -74,6 +74,10 @@ template <> std::string_view value::get() const noexcept {
 }
 
 bool value::operator==(const value &that) const noexcept {
+	if (_node != nullptr && that._node != nullptr) {
+		return (_node == that._node);
+	}
+
 	return (data() == that.data());
 }
 

@@ -84,6 +84,23 @@ TEST(viper, value_conversions) {
 	}
 }
 
+TEST(viper, value_comparisons) {
+	auto t = ryml::parse_in_arena(R"(
+key: value
+array:
+  - one
+  - two
+)");
+
+	// ==()
+	{
+		EXPECT_EQ(viper::value("value"), viper::value(t["key"]));
+		EXPECT_EQ(viper::value(t["key"]), viper::value("value"));
+
+		EXPECT_EQ(viper::value(t["array"]), viper::value(t["array"]));
+	}
+}
+
 TEST(viper, value_get) {
 	// value::get<T>() is used in the conversion operator and covered by conversion tests. Only the
 	// exceptions are tested here.
