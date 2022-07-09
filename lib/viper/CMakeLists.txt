@@ -7,7 +7,18 @@ target_link_libraries(viper
 	PUBLIC ryml::ryml
 )
 
+if (ENABLE_COVERAGE)
+	target_compile_options(viper
+		PRIVATE --coverage
+	)
+
+	target_link_options(viper
+		INTERFACE -fprofile-arcs
+	)
+endif()
+
 add_library(libviper::viper ALIAS viper)
+
 
 # tests
 add_executable(viper_tests
@@ -27,23 +38,4 @@ target_link_libraries(viper_tests
 
 include(GoogleTest)
 gtest_discover_tests(viper_tests)
-
-# code coverage
-if (ENABLE_COVERAGE)
-	target_compile_options(viper
-		PRIVATE --coverage
-	)
-
-	target_link_options(viper
-		PRIVATE -fprofile-arcs
-	)
-
-	target_compile_options(viper_tests
-		PRIVATE --coverage
-	)
-
-	target_link_options(viper_tests
-		PRIVATE -fprofile-arcs
-	)
-endif()
 
