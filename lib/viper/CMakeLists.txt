@@ -36,6 +36,16 @@ target_link_libraries(viper_tests
 	PRIVATE gtest_main
 )
 
+if (ENABLE_COVERAGE)
+	target_compile_options(viper_tests
+		PRIVATE --coverage
+	)
+
+	target_link_options(viper_tests
+		PRIVATE -fprofile-arcs
+	)
+endif()
+
 include(GoogleTest)
 gtest_discover_tests(viper_tests)
 
