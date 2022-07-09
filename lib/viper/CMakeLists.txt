@@ -28,3 +28,22 @@ target_link_libraries(viper_tests
 include(GoogleTest)
 gtest_discover_tests(viper_tests)
 
+# code coverage
+if (ENABLE_COVERAGE)
+	target_compile_options(viper
+		PRIVATE --coverage
+	)
+
+	target_link_options(viper
+		PRIVATE -fprofile-arcs
+	)
+
+	target_compile_options(viper_tests
+		PRIVATE --coverage
+	)
+
+	target_link_options(viper_tests
+		PRIVATE -fprofile-arcs
+	)
+endif()
+
