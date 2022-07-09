@@ -9,5 +9,6 @@ include(cmake/dependencies.cmake)
 option(ENABLE_COVERAGE "Enable code coverage" OFF)
 
 enable_testing()
+add_subdirectory(example)
 add_subdirectory(lib)
 
