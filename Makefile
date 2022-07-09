@@ -1,5 +1,5 @@
-SOURCEDIR = lib
-SOURCES  := $(shell find $(SOURCEDIR) -type f -name '*.h' -o -name '*.cpp')
+SOURCEDIRS = example lib
+SOURCES   := $(foreach dir, $(SOURCEDIRS), $(shell find $(dir) -type f -name '*.h' -o -name '*.cpp'))
 
 
 .SILENT: lint

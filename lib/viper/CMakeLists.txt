@@ -1,6 +1,8 @@
 add_library(viper
 	config.cpp
+	config.h
 	value.cpp
+	value.h
 )
 
 target_link_libraries(viper
@@ -16,9 +18,6 @@ if (ENABLE_COVERAGE)
 		INTERFACE -fprofile-arcs
 	)
 endif()
-
-add_library(libviper::viper ALIAS viper)
-
 
 # tests
 add_executable(viper_tests

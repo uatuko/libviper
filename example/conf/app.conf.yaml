@@ -1,0 +1,14 @@
+app:
+  name: example
+  debug: true
+
+array:
+  - zero
+  - one
+  - two
+
+object:
+  number: 1507
+  boolean: on
+
+key: value
