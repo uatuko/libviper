@@ -1,6 +1,40 @@
+#include <stdlib.h>
+
 #include <gtest/gtest.h>
 
 #include "config.h"
+
+TEST(viper, config_env) {
+	auto c = viper::config("conf");
+
+	// path -> PATH
+	{
+		const char *name     = "KEY";
+		const char *expected = "value:env";
+		EXPECT_EQ(setenv(name, expected, 0), 0); // setup
+		EXPECT_EQ(c.env("key"), viper::value(expected));
+		EXPECT_EQ(unsetenv(name), 0); // teardown
+	}
+
+	// key.path && key-path -> KEY_PATH
+	{
+		const char *name     = "OBJECT_KEY";
+		const char *expected = "value:env";
+		EXPECT_EQ(setenv(name, expected, 0), 0); // setup
+		EXPECT_EQ(c.env("object.key"), viper::value(expected));
+		EXPECT_EQ(c.env("object-key"), viper::value(expected));
+		EXPECT_EQ(unsetenv(name), 0); // teardown
+	}
+
+	// path.to-key -> PATH_TO_KEY
+	{
+		const char *name     = "OBJECT_OTHER_KEY";
+		const char *expected = "value:env";
+		EXPECT_EQ(setenv(name, expected, 0), 0); // setup
+		EXPECT_EQ(c.env("object.other-key"), viper::value(expected));
+		EXPECT_EQ(unsetenv(name), 0); // teardown
+	}
+}
 
 TEST(viper, config_filename) {
 	// Default .yaml configs
@@ -31,6 +65,24 @@ TEST(viper, config_filename) {
 	{
 		auto c = viper::config("non-existent", VIPER_TESTDATA_PATH);
 		EXPECT_TRUE(c.filename().empty());
+	}
+}
+
+TEST(viper, config_get) {
+	auto c = viper::config("conf", VIPER_TESTDATA_PATH);
+	EXPECT_NO_THROW(c.read());
+
+	// env overrides
+	{
+		EXPECT_EQ(
+			c.get("object.other-key"),
+			viper::value("value:object.other-key")); // before env overrides
+
+		const char *name     = "OBJECT_OTHER_KEY";
+		const char *expected = "value:env";
+		EXPECT_EQ(setenv(name, expected, 0), 0); // setup
+		EXPECT_EQ(c.get("object.other-key"), viper::value(expected));
+		EXPECT_EQ(unsetenv(name), 0); // teardown
 	}
 }
 

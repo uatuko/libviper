@@ -1,10 +1,15 @@
+key: value
 object:
-  key: value
-  float: 0.25
   array:
     - null:
     - boolean: true
     - number: 1
+
+  debug: true
+  float: 0.25
+  key: value:object.key
+  other-key: value:object.other-key
+
 text: |-
   Multi
   line

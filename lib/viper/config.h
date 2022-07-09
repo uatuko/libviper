@@ -21,10 +21,15 @@ public:
 	typedef ryml::NodeRef node_t;
 
 	config() = delete;
-	config(const char *name, const char *path);
+	config(const char *name, const char *path = "./");
 	config(tree_t t);
 
 	inline viper::value operator[](const char *key) const { return get(key); }
+
+	/**
+	 * Retrieve a config value from environment variables.
+	 */
+	viper::value env(const char *path) const noexcept;
 
 	/**
 	 * Return the config file used.
@@ -45,6 +50,11 @@ public:
 	 * Read in configs.
 	 */
 	void read();
+
+	/**
+	 * Retrieve a config value from the config file.
+	 */
+	viper::value val(const char *path) const noexcept;
 
 private:
 	const char *_name;

@@ -1,6 +1,11 @@
 #include "config.h"
 
+#include <algorithm>
+#include <cctype>
+#include <cstdlib>
 #include <fstream>
+#include <regex>
+#include <string>
 #include <vector>
 
 namespace viper {
@@ -29,9 +34,21 @@ std::filesystem::path config::filename() {
 	return _filename;
 }
 
+viper::value config::env(const char *path) const noexcept {
+	std::string p = std::regex_replace(path, std::regex("[.-]"), "_");
+	std::transform(
+		p.cbegin(), p.cend(), p.begin(), [](unsigned char c) { return std::toupper(c); });
+
+	const char *v = std::getenv(p.c_str());
+	return v == nullptr ? viper::value() : viper::value(v);
+}
+
 viper::value config::get(const char *path) const {
-	auto n = node(path);
-	return viper::value(n);
+	if (auto v = env(path)) {
+		return v;
+	}
+
+	return val(path);
 }
 
 config::node_t config::node(const char *path) const {
@@ -76,5 +93,9 @@ void config::read() {
 	}
 
 	_tree = ryml::parse_in_arena(ryml::to_csubstr(buffer.data()));
+}
+
+viper::value config::val(const char *path) const noexcept {
+	return viper::value(node(path));
 }
 } // namespace viper
