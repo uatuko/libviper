@@ -2,7 +2,7 @@ add_library(viper
 	config.cpp
 	config.h
 	value.cpp
-	value.cpp
+	value.h
 )
 
 target_link_libraries(viper
