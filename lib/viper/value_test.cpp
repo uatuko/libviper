@@ -58,7 +58,7 @@ TEST(viper, value_conversions) {
 
 		// From null ryml::NodeRef
 		{
-			std::string_view v = {viper::value(ryml::NodeRef{})};
+			auto v = std::string_view{viper::value(ryml::NodeRef{})};
 			EXPECT_EQ(0, v.size());
 			EXPECT_EQ(""sv, v);
 		}
@@ -77,7 +77,7 @@ TEST(viper, value_conversions) {
 
 		// Nulls
 		{
-			std::string_view v = {viper::value{}};
+			auto v = std::string_view{viper::value{}};
 			EXPECT_EQ(0, v.size());
 			EXPECT_EQ(""sv, v);
 		}
