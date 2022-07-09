@@ -7,10 +7,40 @@ on:
     branches:
       - main
 
-env:
-  BUILD_TYPE: Release
-
 jobs:
+  coverage:
+    name: Code coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup lcov
+        run: |
+          version="1.16"
+          mkdir /tmp/lcov-src && cd $_
+          curl -Ls https://github.com/linux-test-project/lcov/releases/download/v1.16/lcov-${version}.tar.gz | tar -xz
+          cd lcov-${version}
+          sudo make install
+      - name: Configure CMake
+        run: cmake -B .build -DENABLE_COVERAGE=ON
+      - name: Build
+        run: cmake --build .build
+      - name: Test
+        working-directory: ${{ github.workspace }}/.build
+        run: ctest
+      - name: Generate code coverage reports
+        working-directory: ${{ github.workspace }}/.build
+        run: |
+          lcov --capture --directory lib --output-file coverage.out
+          lcov --extract coverage.out "${{ github.workspace }}/lib/*" --output-file coverage.out
+          lcov --list coverage.out
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+        with:
+          directory: ${{ github.workspace }}/.build
+          fail_ci_if_error: true
+          files: coverage.out
+          token: ${{ secrets.CODECOV_TOKEN }}
+
   build:
     name: Build on ${{ matrix.os }} using ${{ matrix.compiler }}
     strategy:
@@ -25,9 +55,9 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Configure CMake
-        run: cmake -B ${{ github.workspace }}/.build -DCMAKE_CXX_COMPILER=${{ matrix.compiler }} -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
+        run: cmake -B .build -DCMAKE_CXX_COMPILER=${{ matrix.compiler }} -DCMAKE_BUILD_TYPE=Release
       - name: Build
-        run: cmake --build ${{ github.workspace }}/.build --config ${{ env.BUILD_TYPE }}
+        run: cmake --build .build --config Release
       - name: Test
         working-directory: ${{ github.workspace }}/.build
-        run: ctest -C ${{ env.BUILD_TYPE }}
+        run: ctest -C Release
