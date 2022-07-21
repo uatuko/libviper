@@ -54,6 +54,24 @@ template <> bool value::get() const noexcept {
 	return false;
 }
 
+template <> double value::get() const noexcept {
+	auto s = str();
+	if (s.empty()) {
+		return .0;
+	}
+
+	return std::strtod(s.data(), nullptr);
+}
+
+template <> float value::get() const noexcept {
+	auto s = str();
+	if (s.empty()) {
+		return .0f;
+	}
+
+	return std::strtof(s.data(), nullptr);
+}
+
 template <> long value::get() const noexcept {
 	auto s = str();
 	if (s.empty()) {
