@@ -8,7 +8,9 @@ array:
   - two
 
 object:
-  number: 1507
   boolean: on
+  double: -1.28e-05
+  float: 22.01
+  number: 1507
 
 key: value
