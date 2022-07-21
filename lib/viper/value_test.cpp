@@ -25,6 +25,21 @@ TEST(viper, value_conversions) {
 		EXPECT_FALSE(bool{viper::value(t["🤷"])});
 	}
 
+	// double
+	{
+		EXPECT_EQ(.0, double{viper::value{}});
+		EXPECT_EQ(12.345, double{viper::value("12.345")});
+		EXPECT_EQ(-1.23e-08, double{viper::value("-0.0000000123")});
+		EXPECT_EQ(1.23e-04, double{viper::value("1.23e-4")});
+	}
+
+	// float
+	{
+		EXPECT_EQ(.0f, float{viper::value{}});
+		EXPECT_EQ(1.23f, float{viper::value("1.23")});
+		EXPECT_EQ(0.123f, float{viper::value("1.23e-1")});
+	}
+
 	// long
 	{
 		EXPECT_EQ(0, long{viper::value{}});

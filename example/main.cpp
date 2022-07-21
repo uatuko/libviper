@@ -48,6 +48,8 @@ int main() {
 		std::cout << "<std::string>[app.name] " << std::string(conf["app.name"]) << std::endl;
 		std::cout << "<bool>[app.debug] " << bool{conf["app.debug"]} << std::endl;
 		std::cout << "<bool>[object.boolean] " << bool{conf["object.boolean"]} << std::endl;
+		std::cout << "<double>[object.double] " << double{conf["object.double"]} << std::endl;
+		std::cout << "<float>[object.float] " << conf["object.float"].get<float>() << std::endl;
 		std::cout << "<long>[object.number] " << long{conf["object.number"]} << std::endl;
 
 		viper::value v = conf["object.number"];

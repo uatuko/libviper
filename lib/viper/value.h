@@ -67,6 +67,8 @@ public:
 	 *
 	 * Specialisations:
 	 *   - template <> bool get() const noexcept;
+	 *   - template <> double get() const noexcept;
+	 *   - template <> float get() const noexcept;
 	 *   - template <> long get() const noexcept;
 	 *   - template <> std::string get() const noexcept;
 	 *   - template <> std::string_view get() const noexcept;
