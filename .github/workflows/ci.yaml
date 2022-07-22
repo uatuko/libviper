@@ -35,3 +35,10 @@ jobs:
           fail_ci_if_error: true
           files: coverage.out
           token: ${{ secrets.CODECOV_TOKEN }}
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: make lint:ci

@@ -11,6 +11,8 @@ else
 	clang-format -style=file --dry-run $(SOURCES)
 endif
 
+lint\:ci:
+	clang-format -style=file --dry-run $(SOURCES) -Werror
 
 lint\:fix:
 	clang-format -style=file -i $(SOURCES)
