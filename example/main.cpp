@@ -1,17 +1,37 @@
 #include <iostream>
 
-#include <viper/config.h>
+#include <viper/viper.h>
 
 int main() {
-	auto conf = viper::config("app.conf", EXAMPLE_CONF_PATH);
-	std::cout << "Attempting to read configs from file: " << conf.filename() << std::endl;
+	// An instance of `viper::config` can be used to read config files and retrieve config values.
+	{
+		// Initialise
+		auto conf = viper::config("app.conf", EXAMPLE_CONF_PATH);
+		std::cout << "Attempting to read configs from file: " << conf.filename() << std::endl;
 
+		// Read configs
+		try {
+			conf.read();
+		} catch (const std::exception &e) {
+			std::cout << "[FATAL] " << e.what() << std::endl;
+			return EXIT_FAILURE;
+		}
+
+		// Retrieve config values
+		std::cout << "[app.name] " << conf["app.name"].str() << std::endl;
+	}
+
+	// For convenience, libviper offers configs to be initialised and used as a shared single
+	// instance.
 	try {
-		conf.read();
+		viper::init("app.conf", EXAMPLE_CONF_PATH);
 	} catch (const std::exception &e) {
 		std::cout << "[FATAL] " << e.what() << std::endl;
 		return EXIT_FAILURE;
 	}
+
+	auto conf = *viper::conf(); // deference `std::shared_ptr<viper::config>`` to `viper::config`
+	std::cout << "Using shared configs (file: " << conf.filename() << ")" << std::endl;
 
 	// Using supscript operator to access config values
 	{
