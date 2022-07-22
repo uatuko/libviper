@@ -6,7 +6,6 @@ jobs:
     name: Code coverage
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
       - name: Setup lcov
         run: |
           version="1.16"
@@ -14,6 +13,7 @@ jobs:
           curl -Ls https://github.com/linux-test-project/lcov/releases/download/v1.16/lcov-${version}.tar.gz | tar -xz
           cd lcov-${version}
           sudo make install
+      - uses: actions/checkout@v3
       - name: Configure CMake
         run: cmake -B .build -DENABLE_COVERAGE=ON
       - name: Build
