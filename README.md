@@ -23,9 +23,11 @@ A library for reading configs built using modern c++ standards.
 ```c++
 #include <viper/config.h>
 
-// A config can be constructed by passing in a config name (without the file extension) and a path to
-// look for config files.
-auto conf = viper::config("config.name", "/path/to/config/files");
+// A config can be constructed by passing in a config name (without the file extension)
+// and optionally a path to look for config files.
+auto conf = viper::config("config.name", std::filesystem::current_path() / "conf");
+// auto conf = viper::config("config.name", "/path/to/config/files");
+// auto conf = viper::config("config.name"); // Looks for configs in the current working directory
 
 // Reading configs can throw exceptions
 try {
@@ -35,8 +37,8 @@ try {
 }
 
 // Config values can be retrieved using a key path (`.` can be used to drill down into maps)
-// Note: this will look for an environment variable with key PATH_TO_KEY and if set, return the env value
-//       instead of the value from config file.
+// Note: this will look for an environment variable with key PATH_TO_KEY and if set, return
+//       the env value instead of the value from config file.
 viper::value v = conf["path.to.key"];
 
 // Convert to scalar/basic types using explicit conversions
