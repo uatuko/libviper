@@ -11,6 +11,8 @@
 namespace viper {
 config::config(const char *name, const char *path) : _name(name), _path(path) {}
 
+config::config(const char *name, std::filesystem::path path) : _name(name), _path(path) {}
+
 config::config(tree_t t) : _tree(t) {}
 
 std::filesystem::path config::filename() {
@@ -18,7 +20,7 @@ std::filesystem::path config::filename() {
 		return _filename;
 	}
 
-	auto fpath = std::filesystem::path(_path) / "";
+	auto fpath = _path / "";
 	for (const auto &ext : extensions) {
 		auto fname = std::filesystem::path(_name);
 		fname += ext;

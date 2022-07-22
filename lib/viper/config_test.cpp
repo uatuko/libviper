@@ -63,7 +63,7 @@ TEST(viper, config_filename) {
 
 	// Non-existent configs
 	{
-		auto c = viper::config("non-existent", VIPER_TESTDATA_PATH);
+		auto c = viper::config("non-existent");
 		EXPECT_TRUE(c.filename().empty());
 	}
 }

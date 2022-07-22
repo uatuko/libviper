@@ -21,7 +21,8 @@ public:
 	typedef ryml::NodeRef node_t;
 
 	config() = delete;
-	config(const char *name, const char *path = "./");
+	config(const char *name, const char *path);
+	config(const char *name, std::filesystem::path path = std::filesystem::current_path());
 	config(tree_t t);
 
 	inline viper::value operator[](const char *key) const { return get(key); }
@@ -57,8 +58,8 @@ public:
 	viper::value val(const char *path) const noexcept;
 
 private:
-	const char *_name;
-	const char *_path;
+	const char           *_name;
+	std::filesystem::path _path;
 
 	std::filesystem::path _filename;
 
