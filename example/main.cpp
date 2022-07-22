@@ -30,7 +30,7 @@ int main() {
 		return EXIT_FAILURE;
 	}
 
-	auto conf = *viper::conf(); // deference `std::shared_ptr<viper::config>`` to `viper::config`
+	auto conf = *viper::conf(); // deference `std::shared_ptr<viper::config>` to `viper::config`
 	std::cout << "Using shared configs (file: " << conf.filename() << ")" << std::endl;
 
 	// Using supscript operator to access config values
