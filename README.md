@@ -3,6 +3,7 @@
 [![license](https://img.shields.io/badge/license-MIT-green)](https://raw.githubusercontent.com/uditha-atukorala/libviper/main/LICENSE)
 [![codecov](https://codecov.io/gh/uditha-atukorala/libviper/branch/main/graph/badge.svg?token=8EfwylKma6)](https://codecov.io/gh/uditha-atukorala/libviper)
 [![build](https://github.com/uditha-atukorala/libviper/actions/workflows/build.yaml/badge.svg?branch=main)](https://github.com/uditha-atukorala/libviper/actions/workflows/build.yaml)
+[![release](https://img.shields.io/github/v/release/uditha-atukorala/libviper)](https://github.com/uditha-atukorala/libviper/releases)
 
 A library for reading configs built using modern c++ standards.
 
