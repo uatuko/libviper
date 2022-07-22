@@ -35,7 +35,25 @@ try {
 } catch (const std::exception &e) {
   // TODO: handle exception
 }
+```
 
+Most of the time configs need to be shared throughout the program. Convenience methods, `viper::init()` and `viper::conf()`
+can be used to initialise and use configs as a shared single instance.
+```c++
+#include <viper/viper.h>
+
+try {
+  viper::init("config.name");
+  // viper::init("config.name", "/path/to/config/files");
+  // viper::init("config.name", std::filesystem::current_path() / "conf");
+} catch (const std::exception &e) {
+  // TODO: handle exception
+}
+
+auto conf = *viper::conf(); // deference `std::shared_ptr<viper::config>` to `viper::config`
+```
+
+```c++
 // Config values can be retrieved using a key path (`.` can be used to drill down into maps)
 // Note: this will look for an environment variable with key PATH_TO_KEY and if set, return
 //       the env value instead of the value from config file.
