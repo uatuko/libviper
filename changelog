@@ -1,2 +1,5 @@
+0.1.1 - 22nd July 2022
+	* Avoid using `example` as a cmake target (PR #6)
+
 0.1.0 - 22nd July 2022
 	* Initial release
