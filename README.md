@@ -37,7 +37,7 @@ try {
 }
 ```
 
-Most of the time configs need to be shared throughout the program. Convenience methods, `viper::init()` and `viper::conf()`
+Most of the time configs need to be shared throughout the program. Convenience methods, `viper::init()` and `viper::conf()`,
 can be used to initialise and use configs as a shared single instance.
 ```c++
 #include <viper/viper.h>
