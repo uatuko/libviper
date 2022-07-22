@@ -3,6 +3,8 @@ add_library(viper
 	config.h
 	value.cpp
 	value.h
+	viper.cpp
+	viper.h
 )
 
 target_link_libraries(viper
@@ -23,6 +25,7 @@ endif()
 add_executable(viper_tests
 	config_test.cpp
 	value_test.cpp
+	viper_test.cpp
 )
 
 cmake_path(SET viper_testdata_path ${CMAKE_CURRENT_SOURCE_DIR}/testdata)
