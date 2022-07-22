@@ -58,9 +58,9 @@ public:
 	viper::value val(const char *path) const noexcept;
 
 private:
-	const char           *_name;
-	std::filesystem::path _path;
+	const char *_name;
 
+	std::filesystem::path _path;
 	std::filesystem::path _filename;
 
 	tree_t _tree;
