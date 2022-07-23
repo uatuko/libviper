@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Configure CMake
-        run: cmake -B .build -DCMAKE_CXX_COMPILER=${{ matrix.compiler }} -DCMAKE_BUILD_TYPE=Release
+        run: cmake -B .build -DCMAKE_CXX_COMPILER=${{ matrix.compiler }} -DCMAKE_BUILD_TYPE=Release -DLIBVIPER_ENABLE_TESTING=ON
       - name: Build
         run: |
           cmake --build .build --config Release
