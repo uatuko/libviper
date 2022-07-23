@@ -11,7 +11,7 @@ target_link_libraries(viper
 	PUBLIC ryml::ryml
 )
 
-if (ENABLE_COVERAGE)
+if (LIBVIPER_ENABLE_COVERAGE)
 	target_compile_options(viper
 		PRIVATE --coverage
 	)
@@ -38,7 +38,7 @@ target_link_libraries(viper_tests
 	PRIVATE gtest_main
 )
 
-if (ENABLE_COVERAGE)
+if (LIBVIPER_ENABLE_COVERAGE)
 	target_compile_options(viper_tests
 		PRIVATE --coverage
 	)

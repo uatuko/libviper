@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 include(cmake/dependencies.cmake)
 
-option(ENABLE_COVERAGE "Enable code coverage" OFF)
+option(LIBVIPER_ENABLE_COVERAGE "Enable code coverage" OFF)
 
 enable_testing()
 add_subdirectory(example)

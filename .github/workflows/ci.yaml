@@ -15,7 +15,7 @@ jobs:
           sudo make install
       - uses: actions/checkout@v3
       - name: Configure CMake
-        run: cmake -B .build -DENABLE_COVERAGE=ON
+        run: cmake -B .build -DLIBVIPER_ENABLE_COVERAGE=ON
       - name: Build
         run: cmake --build .build
       - name: Test
