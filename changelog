@@ -1,3 +1,6 @@
+0.3.1 - 23rd July 2022
+	* CMake option to explicitly enable testing (PR #9)
+
 0.3.0 - 23rd July 2022
 	* Convenience methods to initialise and use configs as a single shared instance (PR #8)
 
