@@ -1,5 +1,8 @@
+0.3.0 - 23rd July 2022
+	* Convenience methods to initialise and use configs as a single shared instance (PR #8)
+
 0.2.0 - 22nd July 2022
-	* Accept `std::filesystem::path` as config path when constructing configs (PR #7).
+	* Accept `std::filesystem::path` as config path when constructing configs (PR #7)
 
 0.1.1 - 22nd July 2022
 	* Avoid using `example` as a cmake target (PR #6)
