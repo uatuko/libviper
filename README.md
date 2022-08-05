@@ -50,7 +50,7 @@ try {
   // TODO: handle exception
 }
 
-auto conf = *viper::conf(); // deference `std::shared_ptr<viper::config>` to `viper::config`
+auto conf = *viper::conf(); // dereference `std::shared_ptr<viper::config>` to `viper::config`
 ```
 
 ```c++
