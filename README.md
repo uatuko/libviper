@@ -26,10 +26,17 @@ include(FetchContent)
 
 # libviper
 FetchContent_Declare(libviper
-	URL      https://github.com/uditha-atukorala/libviper/archive/refs/tags/v0.3.1.tar.gz
-	URL_HASH SHA256=24a79fe54708a315394938f7946dab35aa69b884f0fab4ac0a9fa42b60c93313
+  URL      https://github.com/uditha-atukorala/libviper/archive/refs/tags/v0.3.1.tar.gz
+  URL_HASH SHA256=24a79fe54708a315394938f7946dab35aa69b884f0fab4ac0a9fa42b60c93313
 )
 FetchContent_MakeAvailable(libviper)
+```
+
+```cmake
+target_link_libraries(<target>
+  PRIVATE
+    libviper::viper
+)
 ```
 
 
