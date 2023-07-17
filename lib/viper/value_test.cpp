@@ -17,12 +17,12 @@ TEST(viper, value_conversions) {
 	// bool
 	{
 		// boolean conversion is based on if an underlying value it set or not.
-		EXPECT_FALSE(bool{viper::value{}});
-		EXPECT_TRUE(bool{viper::value("false")});
+		EXPECT_FALSE(viper::value{});
+		EXPECT_TRUE(viper::value("false"));
 
 		auto t = ryml::parse_in_arena(R"(key: 0)");
-		EXPECT_TRUE(bool{viper::value(t["key"])});
-		EXPECT_FALSE(bool{viper::value(t["🤷"])});
+		EXPECT_TRUE(viper::value(t["key"]));
+		EXPECT_FALSE(viper::value(t["🤷"]));
 	}
 
 	// double
@@ -121,8 +121,7 @@ TEST(viper, value_get) {
 	// exceptions are tested here.
 
 	// value::get<bool>()
-	// operator bool() is used to check if value{} contains a value so not covered in conversion
-	// tests.
+	// operator bool() is used to check if value{} is set which is used in conversion tests.
 	{
 		EXPECT_TRUE(viper::value("on").get<bool>());
 		EXPECT_TRUE(viper::value("true").get<bool>());
@@ -139,6 +138,15 @@ TEST(viper, value_get) {
 		EXPECT_FALSE(viper::value("0").get<bool>());
 		EXPECT_FALSE(viper::value("string").get<bool>());
 		EXPECT_FALSE(viper::value{}.get<bool>());
+
+		auto t = ryml::parse_in_arena(R"(
+boolean: true
+
+array:
+  - one
+  - two
+)");
+		EXPECT_TRUE(viper::value(t["boolean"]).get<bool>());
 	}
 }
 
