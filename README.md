@@ -82,7 +82,7 @@ auto conf = *viper::conf(); // dereference `std::shared_ptr<viper::config>` to `
 viper::value v = conf["path.to.key"];
 
 // Convert to scalar/basic types using explicit conversions
-auto b = bool{conf["path.to.key"]};
+auto b = conf["path.to.key"].get<bool>();
 auto d = double{conf["path.to.key"]};
 auto l = long{conf["path.to.key"]};
 auto s = conf["path.to.key"].get<std::string>();
