@@ -1,3 +1,6 @@
+0.3.2 - 17th July 2023
+	* Fix to ensure boolean `true` values are read correctly (PR #10)
+
 0.3.1 - 23rd July 2022
 	* CMake option to explicitly enable testing (PR #9)
 
