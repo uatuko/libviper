@@ -30,7 +30,7 @@ template <> bool value::get() const noexcept {
 		return false;
 	}
 
-	const std::array<const char *, 11> vals = {
+	const std::array<std::string_view, 11> vals = {
 		"y",
 		"Y",
 		"yes",
@@ -45,7 +45,7 @@ template <> bool value::get() const noexcept {
 	};
 
 	for (const auto &v : vals) {
-		if (std::strcmp(v, d->data()) == 0) {
+		if (v == d) {
 			return true;
 		}
 	}
